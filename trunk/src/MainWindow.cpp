@@ -6,6 +6,7 @@
 #include <QCameraInfo>
 #include <QMutexLocker>
 #include <QDateTime>
+#include <QTimer>
 #include <QDebug>
 
 #include "AudioSource.h"
@@ -90,6 +91,8 @@ MainWindow::MainWindow(QWidget *parent)
         }
 
         connect(ui->video, SIGNAL(currentIndexChanged(int)), this, SLOT(onCurrentCameraChanged(int)));
+
+        QTimer::singleShot(1000, this, SLOT(delayGetCameraRes()));
     }
 
     // add dumy image
@@ -278,4 +281,11 @@ void MainWindow::onImage(const QImage &img)
     }
 
     mutex_video.unlock();
+}
+
+void MainWindow::delayGetCameraRes()
+{
+    if (ui->video->count() > 0) {
+        onCurrentCameraChanged(ui->video->currentIndex());
+    }
 }

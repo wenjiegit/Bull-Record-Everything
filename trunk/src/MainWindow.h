@@ -38,6 +38,8 @@ private slots:
 
     void onImage(const QImage &img);
 
+    void delayGetCameraRes();
+
 private:
     Ui::MainWindow *ui;
 

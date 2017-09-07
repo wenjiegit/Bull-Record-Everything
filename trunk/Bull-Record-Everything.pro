@@ -11,7 +11,7 @@ INCLUDEPATH += $$PWD/libRtAudio/
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = mux-test
+TARGET = bre
 TEMPLATE = app
 DEFINES += __WINDOWS_DS__
 LIBS +=  -ldsound -luser32  -lole32
