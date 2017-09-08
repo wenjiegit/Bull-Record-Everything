@@ -4,6 +4,10 @@ Bull-Record-Everything is a convenient tool  which can be used to record everyth
 # Download
 1:windows: [https://github.com/wenjiegit/Bull-Record-Everything/blob/master/trunk/doc/attach/bre_v0.1_windows.7z](https://github.com/wenjiegit/Bull-Record-Everything/blob/master/trunk/doc/attach/bre_v0.1_windows.7z)
 
+# Build
+windows:
+Qt 5.7.0 (msvc2013) 32bit
+
 # Preview
 ![](https://github.com/wenjiegit/Bull-Record-Everything/blob/master/trunk/doc/attach/bre_preview_1.png)
 
