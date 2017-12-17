@@ -12,4 +12,5 @@ Qt 5.7.0 (msvc2013) 32bit
 ![](https://github.com/wenjiegit/Bull-Record-Everything/blob/master/trunk/doc/attach/bre_preview_1.png)
 
 # History
+v0.1, 2017-12-17, add scene files
 v0.1, 2017-09-07, support ingest from camera and micor-phone, support mix to media file(mp4,mkv,wmv,rm...)

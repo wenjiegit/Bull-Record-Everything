@@ -11,6 +11,11 @@ class MainWindow;
 
 class MuxThread;
 class QCamera;
+
+class Scene_RecordVideo;
+class Scene_GrabScreen;
+class Scene_RecordAudio;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -40,6 +45,8 @@ private slots:
 
     void delayGetCameraRes();
 
+    void onTabChanged(QWidget *w);
+
 private:
     Ui::MainWindow *ui;
 
@@ -50,6 +57,11 @@ private:
 
     MuxThread* m_muxThread;
     QCamera* m_camera;
+
+    //
+    Scene_RecordVideo*  m_recVideo;
+    Scene_GrabScreen*   m_grabScreen;
+    Scene_RecordAudio*  m_recAudio;
 };
 
 #endif // MAINWINDOW_H

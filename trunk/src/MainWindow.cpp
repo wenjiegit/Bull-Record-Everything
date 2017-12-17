@@ -13,6 +13,9 @@
 #include "MuxApi.h"
 #include "MuxThread.h"
 #include "VideoSurface.h"
+#include "Scene_GrabScreen.h"
+#include "Scene_RecordAudio.h"
+#include "Scene_RecordVideo.h"
 
 Q_DECLARE_METATYPE(AudioDeviceInfo)
 Q_DECLARE_METATYPE(QCameraInfo)
@@ -95,14 +98,29 @@ MainWindow::MainWindow(QWidget *parent)
         QTimer::singleShot(1000, this, SLOT(delayGetCameraRes()));
     }
 
+    // init scene
+    if (true) {
+        m_recVideo   = new Scene_RecordVideo(this);
+        m_grabScreen = new Scene_GrabScreen(this);
+        m_recAudio   = new Scene_RecordAudio(this);
+
+        ui->stackedWidget->addWidget(m_recVideo);
+        ui->stackedWidget->addWidget(m_grabScreen);
+        ui->stackedWidget->addWidget(m_recAudio);
+
+        ui->navWidget->addTab(tr("rec-video"),   m_recVideo);
+        ui->navWidget->addTab(tr("grab-screen"), m_grabScreen);
+        ui->navWidget->addTab(tr("rec-audio"),   m_recAudio);
+
+        connect(ui->navWidget, SIGNAL(tabChanged(QWidget*)), this, SLOT(onTabChanged(QWidget*)));
+    }
+
     // add dumy image
     if (true) {
         QImage img(VIDEO_WIDTH, VIDEO_HEIGHT, QImage::Format_RGB888);
         img.fill(Qt::black);
         m_imgs << img;
     }
-
-    ui->videoDisplayLabel->lower();
 }
 
 MainWindow::~MainWindow()
@@ -262,12 +280,6 @@ void MainWindow::on_open_video_clicked()
 
 void MainWindow::onImage(const QImage &img)
 {
-    if (ui->videoDisplayLabel->size() != img.size()) {
-        ui->videoDisplayLabel->resize(img.size());
-    }
-
-    ui->videoDisplayLabel->setPixmap(QPixmap::fromImage(img));
-
     mutex_video.lock();
 
     if (img.format() != QImage::Format_RGB888) {
@@ -288,4 +300,10 @@ void MainWindow::delayGetCameraRes()
     if (ui->video->count() > 0) {
         onCurrentCameraChanged(ui->video->currentIndex());
     }
+}
+
+void MainWindow::onTabChanged(QWidget *w)
+{
+    qDebug() << "-------->>" <<w;
+    ui->stackedWidget->setCurrentWidget(w);
 }
